@@ -20,4 +20,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: s3pTestResults.jtl
-          path: ${{ github.workspace }}/testsuites/automate-performance
+          path: ${{ github.workspace }}/testsuites/automate-performance/s3pTestResults.jtl
