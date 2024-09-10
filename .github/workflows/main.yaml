@@ -27,7 +27,7 @@ jobs:
 
       - name: Run S3P script    # Runs our S3P script
         working-directory: ${{ github.workspace }}/testsuites
-        run: sudo bash ./run-s3p-test.sh run stability
+        run: sudo bash ./run-s3p-test.sh run performance
 
 # ISSUE: Running into errors installing snap packages
 # sudo: snap: command not found
