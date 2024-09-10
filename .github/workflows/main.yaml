@@ -1,33 +1,17 @@
-name: S3PTestRun
+name: policy-api-performance-test
 
-# Github Events to trigger workflow
-on: push
-
-# A job groups a set of Github actions to be executed
-# Can have multiple jobs here
+on:
+  schedule:
+    # Run every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
 
 jobs:
-  test: # = Job Name - any value
+  run-s3p-tests:
     runs-on: ubuntu-22.04
 
-    # Steps can be actions or commands
-    # Actions with "uses" keyword, command-line commands with "run" keyword
     steps:
-      # Actions can be found at github.com/actions
-      - uses: actions/checkout@v4    # Checks out the source code from Github
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4    # Sets up a Java environment
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      #- name: Test snap install
-      #  run: |
-      #    sudo snap install microk8s --classic
-
-      - name: Run S3P script    # Runs our S3P script
+      - name: Run S3P script
         working-directory: ${{ github.workspace }}/testsuites
         run: sudo bash ./run-s3p-test.sh run performance
-
-# ISSUE: Running into errors installing snap packages
-# sudo: snap: command not found
