@@ -13,7 +13,6 @@ jobs:
 
       - name: 'Extract project name from .gitreview'
         id: extract-project
-        if: steps.check-pom-xml.outputs.exists == 'true'
         run: |
           if [ -f .gitreview ]; then
             PROJECT_NAME=$(grep '^project=' .gitreview | cut -d'=' -f2 | sed 's/\.git$//' | tr '/' '-')
@@ -25,7 +24,6 @@ jobs:
           fi
 
       - name: Load secret from 1Password
-        if: steps.check-pom-xml.outputs.exists == 'true'
         uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0
         with:
           export-env: true
@@ -34,7 +32,6 @@ jobs:
           NEXUS_PASSWORD: "op://elnqtgip7eqavqvgodjbiiaqd4/${{ steps.extract-project.outputs.project-name }}/password"
 
       - name: 'Output SHA1 sum of password'
-        if: steps.check-pom-xml.outputs.exists == 'true'
         env:
           NEXUS_PASSWORD: ${{ env.NEXUS_PASSWORD }}
         run: |
